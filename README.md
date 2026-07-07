@@ -134,7 +134,10 @@ fn is_odd(k)  { if k == 0 { return false } return is_even(k - 1) }
 ```
 
 See [`examples/`](examples/) for FizzBuzz, a sieve, quicksort, a word counter,
-closures-as-objects, and an ASCII Mandelbrot renderer.
+closures-as-objects, and an ASCII Mandelbrot renderer. For something bigger,
+[`plugin/`](plugin/) is a complete **audio dynamic-range compressor** written
+in Beast — envelope detection, a soft-knee gain computer, attack/release
+ballistics, and the `exp`/`log10` math, all in the language.
 
 ## Great error messages
 

@@ -12,3 +12,6 @@ build/
 
 # Benchmark scratch output
 bench/results/
+
+# Generated plugin demo artifacts
+plugin/work/
