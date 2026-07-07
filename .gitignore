@@ -1,0 +1,14 @@
+# Build output
+build/
+*.o
+*.a
+*.out
+
+# Editor/OS noise
+.DS_Store
+*.swp
+.vscode/
+.idea/
+
+# Benchmark scratch output
+bench/results/
