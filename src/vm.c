@@ -30,7 +30,19 @@ static void runtimeError(const char* format, ...) {
     va_end(args);
     fputc('\n', stderr);
 
-    for (int i = vm.frameCount - 1; i >= 0; i--) {
+    // Deep traces (e.g. runaway recursion) are truncated in the middle so
+    // the innermost and outermost frames both stay visible.
+    const int headFrames = 10;
+    const int tailFrames = 10;
+    int n = vm.frameCount;
+    for (int i = n - 1; i >= 0; i--) {
+        int fromTop = n - 1 - i;
+        if (n > headFrames + tailFrames + 1 && fromTop == headFrames) {
+            fprintf(stderr, "  ... %d more frames ...\n",
+                    n - headFrames - tailFrames);
+            i = tailFrames; // skip to the outermost tailFrames frames
+            continue;
+        }
         CallFrame* frame = &vm.frames[i];
         ObjFunction* function = frame->closure->function;
         size_t instruction = frame->ip - function->chunk.code - 1;

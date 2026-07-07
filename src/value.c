@@ -64,6 +64,8 @@ uint32_t hashValue(Value value) {
 }
 
 int formatNumber(char* buf, size_t size, double num) {
+    // Normalize NaN so the sign bit never leaks into output ("-nan").
+    if (isnan(num)) return snprintf(buf, size, "nan");
     // Integer-style printing covers the whole exact range (2^53 < 1e16).
     if (num == floor(num) && fabs(num) < 1e16 && !isinf(num)) {
         if (num == 0) num = 0; // print -0 as 0
